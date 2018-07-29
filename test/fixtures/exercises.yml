@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  exercise_type: one
+  name: MyString
+  image: MyString
+  video: MyString
+  description: MyText
+
+two:
+  exercise_type: two
+  name: MyString
+  image: MyString
+  video: MyString
+  description: MyText

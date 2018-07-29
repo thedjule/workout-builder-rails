@@ -19,6 +19,9 @@ gem 'puma', '~> 3.11'
 # Simple, Heroku-friendly Rails app configuration using ENV and a single YAML file
 gem 'figaro'
 
+# Faker library that generates fake data
+gem 'faker'
+
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
