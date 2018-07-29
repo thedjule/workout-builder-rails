@@ -1,19 +1,19 @@
 class ExerciseTypesController < ApplicationController
   before_action :set_exercise_type, only: [:show, :update, :destroy]
 
-  # GET /exercise_types
+  # GET /exercise-types
   def index
     @exercise_types = ExerciseType.all
 
     render json: @exercise_types
   end
 
-  # GET /exercise_types/1
+  # GET /exercise-types/1
   def show
     render json: @exercise_type
   end
 
-  # POST /exercise_types
+  # POST /exercise-types
   def create
     @exercise_type = ExerciseType.new(exercise_type_params)
 
@@ -24,7 +24,7 @@ class ExerciseTypesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /exercise_types/1
+  # PATCH/PUT /exercise-types/1
   def update
     if @exercise_type.update(exercise_type_params)
       render json: @exercise_type
@@ -33,7 +33,7 @@ class ExerciseTypesController < ApplicationController
     end
   end
 
-  # DELETE /exercise_types/1
+  # DELETE /exercise-types/1
   def destroy
     @exercise_type.destroy
   end
