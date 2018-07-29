@@ -16,8 +16,10 @@ class WorkoutsController < ApplicationController
   # POST /workouts
   def create
     @workout = Workout.new(workout_params)
+    @workout.url = SecureRandom.urlsafe_base64(nil, false)
 
     if @workout.save
+      @workout.exercises << Exercise.where(id: params[:exercise_ids])
       render json: @workout, status: :created, location: @workout
     else
       render json: @workout.errors, status: :unprocessable_entity
