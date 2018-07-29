@@ -1,5 +1,8 @@
 class ExerciseTypesController < ApplicationController
-  before_action :set_exercise_type, only: [:show, :update, :destroy]
+  # Make sure the current_user is authenticated before completing request.
+  before_action :authenticate_user,  only: [:index, :show]
+  before_action :authorize_as_admin, only: [:create, :update, :destroy]
+  before_action :authorize,          only: [:update]
 
   # GET /exercise-types
   def index
@@ -10,6 +13,7 @@ class ExerciseTypesController < ApplicationController
 
   # GET /exercise-types/1
   def show
+    @exercise_type = ExerciseType.find(params[:id])
     render json: @exercise_type
   end
 
@@ -26,6 +30,7 @@ class ExerciseTypesController < ApplicationController
 
   # PATCH/PUT /exercise-types/1
   def update
+    @exercise_type = ExerciseType.find(params[:id])
     if @exercise_type.update(exercise_type_params)
       render json: @exercise_type
     else
@@ -35,14 +40,11 @@ class ExerciseTypesController < ApplicationController
 
   # DELETE /exercise-types/1
   def destroy
+    @exercise_type = ExerciseType.find(params[:id])
     @exercise_type.destroy
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_exercise_type
-      @exercise_type = ExerciseType.find(params[:id])
-    end
 
     # Only allow a trusted parameter "white list" through.
     def exercise_type_params

@@ -1,5 +1,8 @@
 class MuscleGroupsController < ApplicationController
-  before_action :set_muscle_group, only: [:show, :update, :destroy]
+  # Make sure the current_user is authenticated before completing request.
+  before_action :authenticate_user,  only: [:index, :show]
+  before_action :authorize_as_admin, only: [:create, :update, :destroy]
+  before_action :authorize,          only: [:update]
 
   # GET /muscle_groups
   def index
@@ -10,6 +13,7 @@ class MuscleGroupsController < ApplicationController
 
   # GET /muscle_groups/1
   def show
+    @muscle_group = MuscleGroup.find(params[:id])
     render json: @muscle_group
   end
 
@@ -26,6 +30,7 @@ class MuscleGroupsController < ApplicationController
 
   # PATCH/PUT /muscle_groups/1
   def update
+    @muscle_group = MuscleGroup.find(params[:id])
     if @muscle_group.update(muscle_group_params)
       render json: @muscle_group
     else
@@ -35,14 +40,11 @@ class MuscleGroupsController < ApplicationController
 
   # DELETE /muscle_groups/1
   def destroy
+    @muscle_group = MuscleGroup.find(params[:id])
     @muscle_group.destroy
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_muscle_group
-      @muscle_group = MuscleGroup.find(params[:id])
-    end
 
     # Only allow a trusted parameter "white list" through.
     def muscle_group_params
