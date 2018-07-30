@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :workouts
   has_secure_password
 
   validates_length_of       :password, maximum: 72, minimum: 8, allow_nil: true, allow_blank: false
@@ -26,7 +27,8 @@ class User < ApplicationRecord
   # Override the as_json method of User Class
   def as_json(*)
     super(
-        only: [:username, :email, :role, :created_at, :updated_at, :last_login]
+        only: [:username, :email, :role, :created_at, :updated_at, :last_login],
+        include: { :workouts => { :only => [:id, :name, :note] } }
     )
   end
 end

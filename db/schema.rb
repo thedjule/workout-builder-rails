@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_29_215528) do
+ActiveRecord::Schema.define(version: 2018_07_29_235658) do
 
   create_table "exercise_types", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -66,7 +66,10 @@ ActiveRecord::Schema.define(version: 2018_07_29_215528) do
     t.text "note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_workouts_on_user_id"
   end
 
   add_foreign_key "exercises", "exercise_types"
+  add_foreign_key "workouts", "users"
 end

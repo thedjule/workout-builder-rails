@@ -42,10 +42,19 @@ MuscleGroup.create([
   exercise.muscle_groups << MuscleGroup.where(id: MuscleGroup.pluck(:id).sample(3))
 end
 
+# Create a Users
+user = User.create({
+                      email: 'john@test.com',
+                      password: 'password',
+                      username: 'john'
+                   })
+
 # Create a Workout for John
 workout = Workout.create({
                              name: 'Shoulder workout for John',
-                             url: 'ang9cbhoa8', note: Faker::StarWars.quote
+                             url: SecureRandom.urlsafe_base64(nil, false),
+                             note: Faker::StarWars.quote,
+                             user_id: user.id
                          })
 workout.exercises << Exercise.where(id: Exercise.pluck(:id).sample(6))
 
@@ -54,7 +63,8 @@ workout.exercises << Exercise.where(id: Exercise.pluck(:id).sample(6))
   workout = Workout.create({
                                name: Faker::WorldOfWarcraft.quote,
                                url: Faker::Lorem.characters(20),
-                               note: Faker::StarWars.quote
+                               note: Faker::StarWars.quote,
+                               user_id: user.id
                            })
   workout.exercises << Exercise.where(id: Exercise.pluck(:id).sample(6))
 end

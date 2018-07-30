@@ -9,11 +9,6 @@ class UsersController < ApplicationController
     render json: {status: 200, msg: 'Logged-in'}
   end
 
-  # GET /users/1
-  def show
-    render json: @user
-  end
-
   # Check if the user is logged-in
   def current
     current_user.update!(last_login: Time.now)
@@ -36,6 +31,7 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1
   def update
+    @user = User.find(params[:id])
     if @user.update(user_params)
       render json: { status: 200, msg: 'User details have been updated.' }
     end
@@ -50,10 +46,6 @@ class UsersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
 
     # Only allow a trusted parameter "white list" through.
     def user_params
